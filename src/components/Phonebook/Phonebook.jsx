@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Form, FormInput, FormLabel } from './Phonebook.styled';
 import { Button } from 'components/Button.styled';
-import { nanoid } from 'nanoid';
 
 export function Phonebook({ onSubmit }) {
   const [name, setName] = useState('');
@@ -18,7 +17,7 @@ export function Phonebook({ onSubmit }) {
 
   const handleSubmit = event => {
     event.preventDefault();
-    onSubmit({ id: nanoid(), name, number });
+    onSubmit({ name, number });
     setName('');
     setNumber('');
   };

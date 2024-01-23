@@ -1,20 +1,15 @@
-import { SectionContainer } from './Section/Section.styled';
-import { Section, Filter, Contacts, Phonebook } from 'components';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectContacts, selectFilter } from 'state/selectors';
-import { addContact, changeFilter, deleteContact } from 'state/actions';
-import { useEffect } from 'react';
-import { saveDataToLS } from 'helpers/storage';
+import { addContact, deleteContact } from 'state/contactSlice';
+import { changeFilter } from 'state/filterSlice';
+import { SectionContainer } from './Section/Section.styled';
+import { Section, Filter, Contacts, Phonebook } from 'components';
 
 export function App() {
-  const dispatch = useDispatch();
-
   const contacts = useSelector(selectContacts);
-  const filter = useSelector(selectFilter);
 
-  useEffect(() => {
-    saveDataToLS('contacts', contacts);
-  }, [contacts]);
+  const filter = useSelector(selectFilter);
+  const dispatch = useDispatch();
 
   const handleFormSubmit = data => {
     !contacts.find(elem => elem.name.toLowerCase() === data.name.toLowerCase())
