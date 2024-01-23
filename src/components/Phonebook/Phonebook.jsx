@@ -1,8 +1,14 @@
 import { useState } from 'react';
 import { Form, FormInput, FormLabel } from './Phonebook.styled';
 import { Button } from 'components/Button.styled';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectContacts } from 'state/selectors';
+import { addContact } from 'state/contactSlice';
 
 export function Phonebook({ onSubmit }) {
+  const contacts = useSelector(selectContacts);
+  const dispatch = useDispatch();
+
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
@@ -17,7 +23,9 @@ export function Phonebook({ onSubmit }) {
 
   const handleSubmit = event => {
     event.preventDefault();
-    onSubmit({ name, number });
+    !contacts.find(elem => elem.name.toLowerCase() === name.toLowerCase())
+      ? dispatch(addContact({ name, number }))
+      : alert(`${name} is already in contacts!`);
     setName('');
     setNumber('');
   };
