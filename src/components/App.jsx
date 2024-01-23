@@ -1,20 +1,29 @@
-import { useState } from 'react';
 import { SectionContainer } from './Section/Section.styled';
 import { Section, Filter, Contacts, Phonebook } from 'components';
-import { useLocalStorage } from 'hooks/useLocalStorage';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectContacts, selectFilter } from 'state/selectors';
+import { addContact, changeFilter, deleteContact } from 'state/actions';
+import { useEffect } from 'react';
+import { saveDataToLS } from 'helpers/storage';
 
 export function App() {
-  const [contacts, setContacts] = useLocalStorage('contacts', []);
-  const [filter, setFilter] = useState('');
+  const dispatch = useDispatch();
+
+  const contacts = useSelector(selectContacts);
+  const filter = useSelector(selectFilter);
+
+  useEffect(() => {
+    saveDataToLS('contacts', contacts);
+  }, [contacts]);
 
   const handleFormSubmit = data => {
     !contacts.find(elem => elem.name.toLowerCase() === data.name.toLowerCase())
-      ? setContacts(prevState => [...prevState, data])
+      ? dispatch(addContact(data))
       : alert(`${data.name} is already in contacts!`);
   };
 
-  const changeFilter = event => {
-    setFilter(event.target.value);
+  const handleChangeFilter = event => {
+    dispatch(changeFilter(event.target.value));
   };
 
   const getFilteredContacts = () => {
@@ -24,8 +33,8 @@ export function App() {
     );
   };
 
-  const deleteContact = id => {
-    setContacts(prevState => prevState.filter(elem => id !== elem.id));
+  const handleDeleteContact = id => {
+    dispatch(deleteContact(id));
   };
 
   const filteredContacts = getFilteredContacts();
@@ -39,8 +48,8 @@ export function App() {
 
       <SectionContainer>
         <Section title="Contacts">
-          <Filter onChange={changeFilter} />
-          <Contacts contacts={filteredContacts} onClick={deleteContact} />
+          <Filter onChange={handleChangeFilter} />
+          <Contacts contacts={filteredContacts} onClick={handleDeleteContact} />
         </Section>
       </SectionContainer>
     </div>
