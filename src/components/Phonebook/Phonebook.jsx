@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { Form, FormInput, FormLabel } from './Phonebook.styled';
-import { Button } from 'components/Button.styled';
+import { AddButton, Form, FormInput, FormLabel } from './Phonebook.styled';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectContacts } from 'state/selectors';
 import { addContact } from 'state/contactSlice';
@@ -52,7 +51,7 @@ export function Phonebook({ onSubmit }) {
           required
         />
       </FormLabel>
-      <Button type="submit">Add contact</Button>
+      <AddButton type="submit">Add contact</AddButton>
     </Form>
   );
 }

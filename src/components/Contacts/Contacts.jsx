@@ -1,7 +1,11 @@
 import React from 'react';
 import { nanoid } from 'nanoid';
-import { Button } from 'components/Button.styled';
-import { ContactsDescr, ContactsItem, ContactsList } from './Contacts.styled';
+import {
+  ContactsDescr,
+  ContactsItem,
+  ContactsList,
+  DeleteButton,
+} from './Contacts.styled';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectContacts, selectFilter } from 'state/selectors';
 import { deleteContact } from 'state/contactSlice';
@@ -28,12 +32,12 @@ export const Contacts = () => {
             <ContactsDescr>
               {elem.name}: {elem.number}
             </ContactsDescr>
-            <Button
+            <DeleteButton
               type="button"
               onClick={() => dispatch(deleteContact(elem.id))}
             >
               Delete
-            </Button>
+            </DeleteButton>
           </ContactsItem>
         );
       })}

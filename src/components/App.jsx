@@ -3,7 +3,7 @@ import { Section, Filter, Contacts, Phonebook } from 'components';
 
 export function App() {
   return (
-    <div>
+    <>
       <SectionContainer>
         <Section title="Phonebook">
           <Phonebook />
@@ -16,6 +16,6 @@ export function App() {
           <Contacts />
         </Section>
       </SectionContainer>
-    </div>
+    </>
   );
 }
