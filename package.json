@@ -1,8 +1,8 @@
 {
-  "name": "react-homework-template",
+  "name": "phonebook-redux-toolkit-react",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://VasylPopaz.github.io/goit-react-hw-06-phonebook/",
+  "homepage": "https://VasylPopaz.github.io/phonebook-redux-toolkit-react/",
   "dependencies": {
     "@redux-devtools/extension": "^3.3.0",
     "@reduxjs/toolkit": "^2.0.1",
